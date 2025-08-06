@@ -17,7 +17,7 @@ from flask import Flask, jsonify, render_template
 
 
 
-app = Flask(__name__, static_folder='static', template_folder='templates')
+app = Flask(__name__)
 CORS(app)
 
 def extrair_price(texto):
