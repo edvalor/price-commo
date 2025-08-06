@@ -16,7 +16,7 @@ from flask import Flask, jsonify, render_template
 
 
 
-
+api_key = os.environ.get('API_KEY', 'default-key')
 app = Flask(__name__)
 CORS(app)
 
@@ -74,8 +74,9 @@ def calcular_media_preco(texto_preco):
 
 def cotacao_agricolagemelli(): # DOIS SOUP
     url = 'https://agricolagemelli.com/historico-precos'
+    headers = {'Authorization': api_key}
     try:
-        response = requests.get(url, timeout=10 )
+        response = requests.get(url, headers=headers, timeout=10 )
         response.raise_for_status()
     except requests.exceptions.RequestException as e:
         return {"ERRO": f"Não foi possível acessar os dados da Agricolagemelli. {str(e)}", "url": url}
