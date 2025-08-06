@@ -696,8 +696,8 @@ def cotacao_grupouggeri():
         data_ptBR = data_hoje.strftime("%d/%m/%Y")
         price = soup.find_all('div', class_='col-md-12 tcota')
         if len(price) >= 3:
-            soja = extrair_price(price[0].get_text(strip=True)) if price[1] else "N/A"
-            milho = extrair_price(price[1].get_text(strip=True)) if price[1] else "N/A"
+            milho = extrair_price(price[2].get_text(strip=True)) if price[2] else "N/A"
+            soja = extrair_price(price[0].get_text(strip=True)) if price[0] else "N/A"
         else:
             soja = milho = "Mercado está fechado"
         return {
