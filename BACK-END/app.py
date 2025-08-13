@@ -390,7 +390,7 @@ def cotacao_cotrijal():
         }
     except Exception as e:
         return {"ERRO": f"Erro ao processar dados da Cotrijal: {str(e)}", "url": url}
-    
+
 
 def cotacao_cotriel():
     url = 'https://www.cotriel.com.br/Home'
