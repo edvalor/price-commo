@@ -390,37 +390,6 @@ def cotacao_cotrijal():
         }
     except Exception as e:
         return {"ERRO": f"Erro ao processar dados da Cotrijal: {str(e)}", "url": url}
-
-
-def cotacao_cotrirosa(): # ESSE TEM PREÇO PROXIMO, NÃO REAL
-    url = 'https://cotrirosa.com/'
-    try:
-        response = requests.get(url, timeout=10 )
-        response.raise_for_status()
-    except requests.exceptions.RequestsException as e:
-        return {"ERRO": f"Não foi possível acessar os dados da Cotrirosa: {str(e)}", "url": url}
-    html = response.text
-    soup = BeautifulSoup(html, 'html.parser')
-    try:
-        data_hoje = date.today()
-        data_ptBR = data_hoje.strftime("%d/%m/%Y")
-        price = soup.find_all('div', class_='content--value')
-        if len(price) >= 3:
-            soja = extrair_price(price[1].get_text(strip=True)) if price[1] else "N/A"
-            milho = extrair_price(price[0].get_text(strip=True)) if price[0] else "N/A"
-        else:
-            soja = milho = "Mercado está fechado"
-        return {
-            "Data": data_ptBR,
-            "Milho": milho,
-            "Soja": soja,
-            "url": url,
-            "Fonte": "Cotrirosa",
-            "Estado": "Rio Grande do Sul",
-            "Cidade": "Santa Rosa"
-        }
-    except Exception as e:
-        return {"ERRO": f"Erro ao processar dados da Cotrirosa: {str(e)}", "url": url}
     
 
 def cotacao_cotriel():
@@ -886,8 +855,6 @@ def home():
             "/cotacao/cotriel", # RIO GRANDE DO SUL / Não-me-Toque
             "/cotacao/cotrijal", # RIO GRANDE DO SUL / Não-me-Toque
             "/cotacao/coopeagri", # RIO GRANDE DO SUL / Não-me-Toque
-            # SANTA ROSA
-            "/cotacao/cotrirosa", # RIO GRANDE DO SUL / Santa Rosa
             # IJUÍ
             "/cotacao/cooperoque", # RIO GRANDE DO SUL / Ijuí
             "/cotacao/lazarotto", # RIO GRANDE DO SUL / Ijuí
@@ -999,12 +966,6 @@ def api_cotacao_cotrisoja():
     return jsonify(resultado)
 
 
-@app.route('/cotacao/cotrirosa', methods=['GET'])
-def api_cotacao_cotrirosa():
-    resultado = cotacao_cotrirosa()
-    return jsonify(resultado)
-
-
 @app.route('/cotacao/coopeagri', methods=['GET'])
 def api_cotacao_coopeagri():
     resultado = cotacao_coopeagri()
@@ -1091,7 +1052,6 @@ def api_cotacao_rio_grande_do_sul():
         "cotriel": cotacao_cotriel(), # RIO GRANDE DO SUL / Não-me-Toque
         "cotrijal": cotacao_cotrijal(), # RIO GRANDE DO SUL / Não-me-Toque
         "coopeagri": cotacao_coopeagri(), # RIO GRANDE DO SUL / Não-me-Toque
-        "cotrirosa": cotacao_cotrirosa(), # RIO GRANDE DO SUL / Santa Rosa
     })
 
 
@@ -1138,16 +1098,6 @@ def api_cotacao_nao_me_toque():
         "cotriel": cotacao_cotriel(), # RIO GRANDE DO SUL / Não-me-Toque
         "cotrijal": cotacao_cotrijal(), # RIO GRANDE DO SUL / Não-me-Toque
         "coopeagri": cotacao_coopeagri() # RIO GRANDE DO SUL / Não-me-Toque
-    })
-
-
-
-
-
-@app.route('/cotacao/rio_grande_do_sul/santa_rosa', methods=['GET']) #OK, 3º
-def api_cotacao_santa_rosa():
-    return jsonify({
-        "cotrirosa": cotacao_cotrirosa() # RIO GRANDE DO SUL / Santa Rosa
     })
 
 
@@ -1219,7 +1169,6 @@ def api_cotacao_todas():
         "cotriel": cotacao_cotriel(), # RIO GRANDE DO SUL / Não-me-Toque
         "cotrijal": cotacao_cotrijal(), # RIO GRANDE DO SUL / Não-me-Toque
         "coopeagri": cotacao_coopeagri(), # RIO GRANDE DO SUL / Não-me-Toque
-        "cotrirosa": cotacao_cotrirosa(), # RIO GRANDE DO SUL / Santa Rosa
         "cooperoque": cotacao_cooperoque(), # RIO GRANDE DO SUL / Ijuí
         "lazarotto": cotacao_lazarotto(), # RIO GRANDE DO SUL / Ijuí
         "grupouggeri": cotacao_grupouggeri(), # RIO GRANDE DO SUL / Ijuí
