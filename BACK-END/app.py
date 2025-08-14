@@ -73,7 +73,7 @@ def calcular_media_preco(texto_preco):
 
 
 def cotacao_agricolagemelli(): # DOIS SOUP
-    url = 'https://agricolagemelli.com/historico-precos'
+    url = 'https://agricolagemelli.com/historico-precos/'
     headers = {'Authorization': api_key}
     try:
         response = requests.get(url, headers=headers, timeout=10 )
