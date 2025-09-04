@@ -73,7 +73,7 @@ def calcular_media_preco(texto_preco):
 
 
 def cotacao_agricolagemelli(): # DOIS SOUP
-    url = 'https://agricolagemelli.com/historico-precos/'
+    url = 'https://agricolagemelli.com/historico-precos'
     headers = {'Authorization': api_key}
     try:
         response = requests.get(url, headers=headers, timeout=10 )
@@ -292,14 +292,15 @@ def cotacao_cotacoesmercado():
         data_hoje = date.today()
         data_ptBR = data_hoje.strftime("%d/%m/%Y")
         
-        price_elements = soup.find_all('p', class_='font_8 wixui-rich-text__text')
+        price_elements = soup.find_all('p', class_='wixui-rich-text__text')
         
         if len(price_elements) >= 10:
             # Extrai o texto completo de cada linha
-            texto_soja_balcao = price_elements[1].get_text(strip=True)
-            texto_milho_balcao = price_elements[2].get_text(strip=True)
-            texto_soja_disponivel = price_elements[6].get_text(strip=True)
-            texto_milho_disponivel = price_elements[7].get_text(strip=True)
+
+            texto_soja_balcao = price_elements[2].get_text(strip=True)
+            texto_soja_disponivel = price_elements[7].get_text(strip=True)
+            texto_milho_balcao = price_elements[3].get_text(strip=True)
+            texto_milho_disponivel = price_elements[8].get_text(strip=True)
 
             # Usa a nova função para calcular a média de cada um
             media_soja_balcao = calcular_media_preco(texto_soja_balcao)
