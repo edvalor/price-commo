@@ -23,7 +23,7 @@
         async function downloadCSV() {
     try {
         // 1. Buscar os dados da API
-        const response = await fetch('http://127.0.0.1:5000/cotacao/todas' );
+        const response = await fetch('http://10.58.0.30:5000/cotacao/todas' );
         const data = await response.json();
 
         // 2. Definir a ordem das fontes
@@ -194,11 +194,11 @@
         }
 
         // Chamadas por cidade
-        carregarCidades("cotacoes_passo_fundo", "http://127.0.0.1:5000/cotacao/rio_grande_do_sul/passo_fundo");
-        carregarCidades("cotacoes_nao_me_toque", "http://127.0.0.1:5000/cotacao/rio_grande_do_sul/nao_me_toque");
-        carregarCidades("cotacoes_ijui", "http://127.0.0.1:5000/cotacao/rio_grande_do_sul/ijui");
-        carregarCidades("cotacoes_cascavel", "http://127.0.0.1:5000/cotacao/parana/cascavel");
-        carregarCidades("cotacoes_maringa", "http://127.0.0.1:5000/cotacao/parana/maringa");
+        carregarCidades("cotacoes_passo_fundo", "http://10.58.0.30:5000/cotacao/rio_grande_do_sul/passo_fundo");
+        carregarCidades("cotacoes_nao_me_toque", "http://10.58.0.30:5000/cotacao/rio_grande_do_sul/nao_me_toque");
+        carregarCidades("cotacoes_ijui", "http://10.58.0.30:5000/cotacao/rio_grande_do_sul/ijui");
+        carregarCidades("cotacoes_cascavel", "http://10.58.0.30:5000/cotacao/parana/cascavel");
+        carregarCidades("cotacoes_maringa", "http://10.58.0.30:5000/cotacao/parana/maringa");
     </script>
 </body>
 
